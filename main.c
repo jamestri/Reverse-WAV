@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     printf("File: %s\n", fileName);
     printf("=====================\n");
-    printf("- File size is %d. Read %d bytes.\n", size, size - 8);
+    printf("- File size is %zu. Read %u bytes.\n", size, (unsigned int) size - 8);
     printf("- Format is \"%s\" with format data length %d.\n", file->format, file->formatLength);
     printf("- Format type is %s.\n", file->wave);
     printf("- %d channels with a sample rate of %d.\n", file->channels, file->rate);

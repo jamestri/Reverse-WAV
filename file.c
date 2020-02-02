@@ -5,10 +5,14 @@
 
 #include "file.h"
 #include <stdio.h>
+#include <string.h>
 
 size_t read_file(char* filename, char** buffer){
     FILE *fp;
-    fp = fopen(filename, "rb");
+
+    if ((fopen_s(&fp, filename, "rb")) != 0){
+        perror("Error reading file");
+    }
     //finds length of file
     fseek(fp, 0L, SEEK_END);
     size_t size = ftell(fp);
@@ -20,9 +24,8 @@ size_t read_file(char* filename, char** buffer){
 }
 size_t write_file(char* filename, char* buffer, size_t size){
     FILE *fp;
-    fp = fopen(filename, "wb");
-    if (fp == NULL){ //if something goes wrong
-        printf("oof\n");
+    if ((fopen_s(&fp, filename, "wb")) != 0){
+        perror("Error writing file");
     }
     fwrite(buffer, size, 1, fp);
     //find new size of file to compare
