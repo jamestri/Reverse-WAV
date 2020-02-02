@@ -27,11 +27,25 @@ int main(int argc, char *argv[]) {
     char *newName = argv[2];
     char *buffer = NULL;
     size_t size = read_file(fileName, &buffer);
-
-    wav_file *file = parse(buffer);
-    if (file == NULL) {
+    if (size < 1){
+        printf("error reading file\n");
         return -1;
     }
+    wav_file *file = parse(buffer);
+    if (file == NULL) {
+        printf("error occurred while parsing\n");
+        return -1;
+    }
+
+    char cmpWave[5];
+    memcpy(cmpWave, file->wave, 4);
+    cmpWave[4] = '\0';
+    printf("%s\n", cmpWave);
+    if (strcmp(cmpWave, "WAVE") != 0){
+        printf("not a wav file: %s\n", file->wave);
+        return -1;
+    }
+
 
 
     printf("File: %s\n", fileName);
