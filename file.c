@@ -18,6 +18,10 @@ size_t read_file(char* filename, char** buffer){
     size_t size = ftell(fp);
     fseek(fp, 0L, SEEK_SET);
     *buffer = malloc(size * sizeof(char));
+    if (*buffer == NULL) {
+        printf("Error while malloc");
+        exit(-1);
+    }
     fread(*buffer, sizeof(char), size, fp);
     fclose(fp);
     return size;
